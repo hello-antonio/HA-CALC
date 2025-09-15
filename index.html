@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Calculador de descuento" />
+    <title>HA-CAL</title>
+    <style>
+      *,
+      *::after,
+      *::before {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: #1a1a1a;
+        color: #778899;
+        padding: 1.5rem;
+        position: absolute;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+          sans-serif;
+        text-transform: uppercase;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 100%;
+        height: 100vh;
+        font-size: 0.75em;
+      }
+
+      input {
+        appearance: none;
+        background-color: transparent;
+        border: none;
+        border-bottom: thin solid #778899;
+        padding: 0.5rem 0;
+        font-size: 2rem;
+        width: 100%;
+        color: #778899;
+      }
+
+      input:focus-visible {
+        outline: none;
+        border-bottom-color: white;
+        color: white;
+      }
+
+      h1 {
+        font-size: inherit;
+      }
+
+      #forma {
+        margin-bottom: 4rem;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+      }
+
+      #forma div {
+        width: 100%;
+      }
+
+      #precio_final {
+        font-size: 10vmax;
+        font-weight: bold;
+      }
+
+      @media (min-width: 45em) {
+        #precio_final {
+          font-size: 16vmax;
+        }
+      }
+
+      .precio {
+        margin-bottom: 2rem;
+      }
+
+      #descuento_final {
+        font-size: 3rem;
+      }
+
+      #precio_final,
+      #descuento_final {
+        color: #90ee90;
+        line-height: 1;
+      }
+
+      .label {
+        color: #778899;
+        font-size: smaller;
+      }
+      .dollar {
+        font-size: medium;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="forma">
+      <div>
+        <label for="precio_regular" class="label">precio regular</label>
+        <input
+          type="number"
+          name="precio_regular"
+          id="precio_regular"
+          placeholder="$100"
+        />
+      </div>
+      <div>
+        <label for="descuento" class="label">Descuento</label>
+        <input
+          type="number"
+          name="descuento"
+          id="descuento"
+          placeholder="15%"
+        />
+      </div>
+    </div>
+    <div class="resultados">
+      <div class="precio">
+        <span class="dollar label">&dollar;</span>
+        <span id="precio_final">0</span>
+        <div class="label">Precio final</div>
+      </div>
+      <div class="descuento">
+        <span class="dollar label">&dollar;</span>
+        <span id="descuento_final">0</span>
+        <div class="label">ahorro</div>
+      </div>
+    </div>
+    <script>
+      const forma = document.getElementById("forma");
+
+      const precio_regular = document.getElementById("precio_regular");
+      const descuento = document.getElementById("descuento");
+      const descuento_final = document.getElementById("descuento_final");
+      const precio_final = document.getElementById("precio_final");
+
+      const calculate = () => {
+        const descuento_total = (precio_regular.value * descuento.value) / 100;
+        const precio_total = precio_regular.value - descuento_total;
+
+        precio_final.textContent = precio_total.toFixed(2);
+        descuento_final.textContent = descuento_total.toFixed(2);
+      };
+
+      forma.addEventListener("keyup", (e) => {
+        calculate();
+      });
+
+      forma.addEventListener("change", (e) => {
+        calculate();
+      });
+    </script>
+  </body>
+</html>
